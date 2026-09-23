@@ -1,10 +1,17 @@
 /* ============================================================
-   Dispersy — базова темна тема (порожнє вікно)
-   Елементи інтерфейсу додаються поступово поверх цієї бази.
+   Dispersy — neutral black theme.
    ============================================================ */
 :root {
-  --bg: #0d1117;            /* фон вікна */
+  --bg: #0a0a0a;           /* work area */
+  --bg-sidebar: #101010;   /* sidebar */
+  --border: #1f1f1f;
+  --hover: #1a1a1a;
+  --active: #1e1e1e;
+  --icon: #9a9a9a;
+  --text: #e6e6e6;
+  --text-dim: #cfcfcf;
   --titlebar-h: 40px;
+  --sidebar-w: 240px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -16,7 +23,7 @@ html, body {
 
 body {
   background: var(--bg);
-  color: #e6edf3;
+  color: var(--text);
   font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
@@ -24,13 +31,166 @@ body {
   cursor: default;
 }
 
-/* Зона перетягування вікна */
+/* Window drag zone */
 .titlebar {
   height: var(--titlebar-h);
   -webkit-app-region: drag;
 }
 
-/* Порожня робоча область */
-.main {
+/* Row: sidebar + work area */
+.row {
+  position: relative;
+  display: flex;
   height: calc(100% - var(--titlebar-h));
+  overflow: hidden;
+}
+
+/* ---------- Sidebar (collapsible) ---------- */
+.sidebar {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-w);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  transition: margin-left 160ms ease;
+}
+
+.row.collapsed .sidebar {
+  margin-left: calc(-1 * var(--sidebar-w));
+  border-right-color: transparent;
+  visibility: hidden;
+  transition: margin-left 160ms ease, visibility 0s 160ms;
+}
+
+/* Sidebar sections */
+.side-top {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 10px 10px 46px; /* left space for the panel toggle */
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 10px;
+}
+
+.side-bottom {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--border);
+}
+
+/* Text buttons (brand, nav items, account) */
+.side-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 34px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.side-btn svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  color: var(--icon);
+  transition: color 120ms ease;
+}
+
+.side-btn:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.side-btn:hover svg { color: var(--text-dim); }
+
+.side-btn.is-active {
+  background: var(--active);
+  color: var(--text);
+}
+
+.brand-btn {
+  flex: 1;
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.account-btn { flex: 1; }
+
+/* Small square icon buttons (help, settings) */
+.icon-btn {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--icon);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.icon-btn svg { width: 15px; height: 15px; }
+
+.icon-btn:hover {
+  background: var(--hover);
+  color: var(--text-dim);
+}
+
+.help-btn { width: 30px; height: 30px; }
+.settings-btn { width: 26px; height: 26px; }
+
+/* ---------- Panel toggle: always visible at the top-left ---------- */
+.panel-toggle {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--icon);
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.panel-toggle svg { width: 14px; height: 14px; }
+
+.panel-toggle:hover {
+  background: var(--hover);
+  color: var(--text-dim);
+}
+
+/* ---------- Work area: empty ---------- */
+.main {
+  flex: 1;
+  min-width: 0;
 }

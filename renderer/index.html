@@ -8,9 +8,68 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Пусте вікно: зверху лише зона перетягування (системні кнопки — overlay справа). -->
+  <!-- Window drag zone (system buttons are a top-right overlay). -->
   <div class="titlebar"></div>
-  <main class="main"></main>
+
+  <div class="row" id="row">
+    <aside class="sidebar">
+      <!-- Top: brand (home) + help -->
+      <div class="side-top">
+        <button class="side-btn brand-btn" id="homeBtn" type="button">Dispersy</button>
+        <button class="icon-btn help-btn" id="helpBtn" type="button" aria-label="Help">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M9.3 9.2a2.8 2.8 0 0 1 5.44.93c0 1.87-2.8 2.8-2.8 2.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="12" cy="16.6" r="0.9" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Middle: actions -->
+      <nav class="side-nav">
+        <button class="side-btn nav-item" id="newTaskBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+          New task
+        </button>
+        <button class="side-btn nav-item" id="searchBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <path d="m20.5 20.5-4.8-4.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          Search
+        </button>
+      </nav>
+
+      <!-- Bottom: account + settings -->
+      <div class="side-bottom">
+        <button class="side-btn account-btn" id="accountBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M5 20c.8-3.4 3.6-5 7-5s6.2 1.6 7 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          Account
+        </button>
+        <button class="icon-btn settings-btn" id="settingsBtn" type="button" aria-label="Settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Panel show/hide toggle: stays in place when the sidebar is collapsed. -->
+    <button class="panel-toggle" id="panelToggle" type="button" aria-label="Toggle panel">
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <rect x="2" y="2.5" width="12" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/>
+        <path d="M6 2.5v11" stroke="currentColor" stroke-width="1.3"/>
+      </svg>
+    </button>
+
+    <!-- Work area: empty for now. -->
+    <main class="main"></main>
+  </div>
+
   <script src="renderer.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
-const BACKGROUND = '#0d1117';
+const BACKGROUND = '#0a0a0a';
 const IS_DEV = !app.isPackaged;
 
 // Ідентифікатор застосунку для Windows (панель задач, сповіщення, групування вікон).
@@ -29,10 +29,6 @@ function createWindow() {
 
   // Показуємо вікно лише коли воно реально готове — без білого спалаху.
   win.once('ready-to-show', () => win.show());
-
-  win.webContents.on('did-finish-load', () => {
-    win.webContents.send('app:info', { version, platform: process.platform });
-  });
 
   if (IS_DEV) {
     const startedAt = Date.now();
