@@ -8,81 +8,9 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="app">
-    <!-- Тайтлбар: зона перетягування вікна. Справа зверху — системні кнопки (overlay). -->
-    <header class="titlebar">
-      <div class="brand">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-name">Dispersy</span>
-        <span class="brand-badge">Preview</span>
-      </div>
-    </header>
-
-    <div class="layout">
-      <aside class="sidebar">
-        <button class="btn-primary" type="button">
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
-          New agent session
-        </button>
-
-        <nav class="nav">
-          <p class="nav-label">Workspace</p>
-          <a class="nav-item is-active" href="#">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5 2.5 7.2V13.5h4v-3.4h3v3.4h4V7.2L8 2.5Z" fill="currentColor"/></svg>
-            Home
-          </a>
-          <a class="nav-item" href="#">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4.5" y="4.5" width="7" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 2v2.5M9.5 2v2.5M6.5 11.5V14M9.5 11.5V14M2 6.5h2.5M2 9.5h2.5M11.5 6.5H14M11.5 9.5H14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-            Agent Manager
-          </a>
-          <a class="nav-item" href="#">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.75h5L12 4.75v9.5H4v-12.5Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9 1.75v3h3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
-            Artifacts
-          </a>
-          <a class="nav-item" href="#">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M2 8h12M8 2c-2.5 2.5-2.5 9.5 0 12M8 2c2.5 2.5 2.5 9.5 0 12" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
-            Browser
-          </a>
-        </nav>
-
-        <div class="sidebar-footer">
-          <a class="nav-item" href="#">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4.5h12M2 8h12M2 11.5h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="6" cy="4.5" r="1.6" fill="#0d1117" stroke="currentColor" stroke-width="1.3"/><circle cx="10.5" cy="8" r="1.6" fill="#0d1117" stroke="currentColor" stroke-width="1.3"/><circle cx="5" cy="11.5" r="1.6" fill="#0d1117" stroke="currentColor" stroke-width="1.3"/></svg>
-            Settings
-          </a>
-        </div>
-      </aside>
-
-      <main class="main">
-        <section class="welcome">
-          <div class="orb" aria-hidden="true"></div>
-          <h1>Welcome to <span class="accent">Dispersy</span></h1>
-          <p class="tagline">An agentic workspace for building with AI — fast, focused, and entirely on your machine.</p>
-
-          <div class="quick-actions">
-            <button class="card" type="button">
-              <strong>Start an agent session</strong>
-              <span>Describe a task and let Dispersy plan and execute it.</span>
-            </button>
-            <button class="card" type="button">
-              <strong>Open a project</strong>
-              <span>Point Dispersy at a folder and start working.</span>
-            </button>
-            <button class="card" type="button">
-              <strong>Explore agents</strong>
-              <span>Browse and manage your agent workforce.</span>
-            </button>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <footer class="statusbar">
-      <span class="status-left"><span class="status-dot" aria-hidden="true"></span> Ready</span>
-      <span class="status-right" id="app-version"></span>
-    </footer>
-  </div>
-
+  <!-- Пусте вікно: зверху лише зона перетягування (системні кнопки — overlay справа). -->
+  <div class="titlebar"></div>
+  <main class="main"></main>
   <script src="renderer.js"></script>
 </body>
 </html>

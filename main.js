@@ -1,6 +1,5 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const { version } = require('./package.json');
 
 const BACKGROUND = '#0d1117';
 const IS_DEV = !app.isPackaged;
