@@ -1,0 +1,42 @@
+{
+  "name": "dispersy",
+  "productName": "Dispersy",
+  "version": "0.1.0",
+  "description": "An AI-powered development environment, built around a multi-agent architecture.",
+  "main": "main.js",
+  "author": {
+    "name": "Dispersy"
+  },
+  "scripts": {
+    "start": "electron .",
+    "icon": "node scripts/make-icon.mjs",
+    "dist": "electron-builder --win"
+  },
+  "build": {
+    "appId": "app.dispersy.desktop",
+    "productName": "Dispersy",
+    "copyright": "Copyright © 2026 Dispersy",
+    "asar": true,
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "app-builder-bin": "^4.2.0",
+    "electron": "^40.0.0",
+    "electron-builder": "^26.15.3"
+  }
+}

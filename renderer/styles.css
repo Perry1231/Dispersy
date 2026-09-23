@@ -1,0 +1,289 @@
+/* ============================================================
+   Dispersy — темна тема (одна палітра на весь застосунок)
+   ============================================================ */
+:root {
+  --bg: #0d1117;            /* фон вікна */
+  --bg-sidebar: #10161f;    /* бічна панель */
+  --bg-elevated: #161d29;   /* картки, ховери */
+  --border: #1f2733;
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --accent: #8b7cf8;
+  --accent-strong: #6f5cf0;
+  --ok: #3fb950;
+  --radius: 10px;
+  --titlebar-h: 40px;
+  --statusbar-h: 28px;
+  --sidebar-w: 264px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: default;
+}
+
+/* ---------- Каркас ---------- */
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Тайтлбар (drag-зона; системні кнопки — overlay справа) ---------- */
+.titlebar {
+  height: var(--titlebar-h);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  padding-left: 14px;
+  padding-right: 160px; /* місце під кнопки вікна Windows */
+  -webkit-app-region: drag;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.brand-mark {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, #8b7cf8, #4cc9f0, #f4845f, #8b7cf8);
+  box-shadow: 0 0 10px rgba(139, 124, 248, 0.45);
+}
+
+.brand-name {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.brand-badge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+/* ---------- Розкладка ---------- */
+.layout {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* ---------- Бічна панель ---------- */
+.sidebar {
+  width: var(--sidebar-w);
+  flex: 0 0 auto;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 14px 12px;
+  gap: 16px;
+}
+
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 120ms ease;
+}
+
+.btn-primary:hover { filter: brightness(1.12); }
+.btn-primary:active { filter: brightness(0.92); }
+.btn-primary svg { width: 14px; height: 14px; }
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  padding: 0 10px;
+  margin-bottom: 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 13px;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.nav-item svg { width: 15px; height: 15px; flex: 0 0 auto; }
+
+.nav-item:hover {
+  background: var(--bg-elevated);
+  color: var(--text);
+}
+
+.nav-item.is-active {
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ---------- Головна область ---------- */
+.main {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+}
+
+.welcome {
+  max-width: 680px;
+  text-align: center;
+  animation: rise 180ms ease-out both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.orb {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, #8b7cf8, #4cc9f0, #f4845f, #8b7cf8);
+  box-shadow:
+    0 0 42px rgba(139, 124, 248, 0.35),
+    inset 0 0 18px rgba(13, 17, 23, 0.55);
+}
+
+.welcome h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.welcome .accent {
+  background: linear-gradient(100deg, #a99cf9, #4cc9f0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tagline {
+  color: var(--text-dim);
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 34px;
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.card {
+  text-align: left;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-sidebar);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 120ms ease, transform 120ms ease, background 120ms ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  background: var(--bg-elevated);
+  transform: translateY(-1px);
+}
+
+.card strong { font-size: 13.5px; font-weight: 600; }
+.card span { font-size: 12.5px; color: var(--text-dim); line-height: 1.45; }
+
+/* ---------- Статус-бар ---------- */
+.statusbar {
+  height: var(--statusbar-h);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-sidebar);
+  color: var(--text-dim);
+  font-size: 11.5px;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 6px rgba(63, 185, 80, 0.6);
+}
+
+/* ---------- Вузькі вікна ---------- */
+@media (max-width: 860px) {
+  .quick-actions { grid-template-columns: 1fr; }
+}

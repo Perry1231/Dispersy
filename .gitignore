@@ -1,0 +1,12 @@
+# Залежності
+node_modules/
+
+# Збірка / релізи
+dist/
+release/
+out/
+
+# Логи та системні файли
+*.log
+.DS_Store
+Thumbs.db
