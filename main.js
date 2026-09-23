@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
-const BACKGROUND = '#0a0a0a';
+const BACKGROUND = '#101010';
 const IS_DEV = !app.isPackaged;
 
 // Ідентифікатор застосунку для Windows (панель задач, сповіщення, групування вікон).
@@ -17,7 +17,7 @@ function createWindow() {
     backgroundColor: BACKGROUND,
     title: 'Dispersy',
     titleBarStyle: 'hidden',
-    titleBarOverlay: { color: BACKGROUND, symbolColor: '#8b949e', height: 40 },
+    titleBarOverlay: { color: '#101010', symbolColor: '#9a9a9a', height: 44 },
     autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),

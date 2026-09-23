@@ -3,14 +3,15 @@
    ============================================================ */
 :root {
   --bg: #0a0a0a;           /* work area */
-  --bg-sidebar: #101010;   /* sidebar */
+  --bg-chrome: #101010;    /* top bar + sidebar */
   --border: #1f1f1f;
   --hover: #1a1a1a;
   --active: #1e1e1e;
   --icon: #9a9a9a;
   --text: #e6e6e6;
   --text-dim: #cfcfcf;
-  --titlebar-h: 40px;
+  --faint: #6e6e6e;
+  --topbar-h: 44px;
   --sidebar-w: 240px;
 }
 
@@ -31,69 +32,34 @@ body {
   cursor: default;
 }
 
-/* Window drag zone */
-.titlebar {
-  height: var(--titlebar-h);
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Fixed top bar (also the window drag zone) ---------- */
+.topbar {
+  flex: 0 0 auto;
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 10px;
+  padding-right: 160px; /* keep clear of the system window buttons */
+  background: var(--bg-chrome);
+  border-bottom: 1px solid var(--border);
   -webkit-app-region: drag;
 }
 
-/* Row: sidebar + work area */
-.row {
-  position: relative;
-  display: flex;
-  height: calc(100% - var(--titlebar-h));
-  overflow: hidden;
-}
+.topbar-btn { -webkit-app-region: no-drag; }
 
-/* ---------- Sidebar (collapsible) ---------- */
-.sidebar {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  width: var(--sidebar-w);
-  background: var(--bg-sidebar);
-  border-right: 1px solid var(--border);
-  overflow: hidden;
-  transition: margin-left 160ms ease;
-}
-
-.row.collapsed .sidebar {
-  margin-left: calc(-1 * var(--sidebar-w));
-  border-right-color: transparent;
-  visibility: hidden;
-  transition: margin-left 160ms ease, visibility 0s 160ms;
-}
-
-/* Sidebar sections */
-.side-top {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 10px 10px 10px 46px; /* left space for the panel toggle */
-}
-
-.side-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 6px 10px;
-}
-
-.side-bottom {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 8px 10px 10px;
-  border-top: 1px solid var(--border);
-}
-
-/* Text buttons (brand, nav items, account) */
+.topbar-btn,
 .side-btn {
   display: flex;
   align-items: center;
   gap: 9px;
-  height: 34px;
+  height: 32px;
   padding: 0 10px;
   border: none;
   border-radius: 8px;
@@ -106,6 +72,7 @@ body {
   transition: background 120ms ease, color 120ms ease;
 }
 
+.topbar-btn svg,
 .side-btn svg {
   width: 15px;
   height: 15px;
@@ -114,11 +81,13 @@ body {
   transition: color 120ms ease;
 }
 
+.topbar-btn:hover,
 .side-btn:hover {
   background: var(--hover);
   color: var(--text);
 }
 
+.topbar-btn:hover svg,
 .side-btn:hover svg { color: var(--text-dim); }
 
 .side-btn.is-active {
@@ -127,70 +96,258 @@ body {
 }
 
 .brand-btn {
-  flex: 1;
   font-weight: 600;
   font-size: 13.5px;
   color: var(--text);
   letter-spacing: 0.01em;
 }
 
+/* Models picker */
+.models-btn { gap: 5px; color: var(--text-dim); }
+.models-btn .chevron { width: 12px; height: 12px; margin-left: 1px; }
+
+.icon-btn {
+  width: 30px;
+  padding: 0;
+  justify-content: center;
+}
+
+/* ---------- Row: sidebar + work area ---------- */
+.row {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-w);
+  background: var(--bg-chrome);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  transition: margin-left 160ms ease;
+}
+
+.row.collapsed .sidebar {
+  margin-left: calc(-1 * var(--sidebar-w));
+  border-right-color: transparent;
+  visibility: hidden;
+  transition: margin-left 160ms ease, visibility 0s 160ms;
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px 4px;
+}
+
+.side-nav .side-btn { height: 34px; }
+
+/* Task list */
+.side-tasks {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.side-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  padding: 8px 10px 4px;
+}
+
+.task-item .task-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.side-bottom {
+  margin-top: auto;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--border);
+}
+
 .account-btn { flex: 1; }
 
-/* Small square icon buttons (help, settings) */
-.icon-btn {
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #262626;
+  color: var(--text-dim);
+  font-size: 10.5px;
+  font-weight: 600;
   flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  border: none;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--icon);
-  cursor: pointer;
-  transition: background 120ms ease, color 120ms ease;
 }
 
-.icon-btn svg { width: 15px; height: 15px; }
+.settings-btn { width: 30px; height: 30px; }
 
-.icon-btn:hover {
-  background: var(--hover);
-  color: var(--text-dim);
-}
-
-.help-btn { width: 30px; height: 30px; }
-.settings-btn { width: 26px; height: 26px; }
-
-/* ---------- Panel toggle: always visible at the top-left ---------- */
-.panel-toggle {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  z-index: 2;
-  width: 30px;
-  height: 30px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  border: none;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--icon);
-  cursor: pointer;
-  -webkit-app-region: no-drag;
-  transition: background 120ms ease, color 120ms ease;
-}
-
-.panel-toggle svg { width: 14px; height: 14px; }
-
-.panel-toggle:hover {
-  background: var(--hover);
-  color: var(--text-dim);
-}
-
-/* ---------- Work area: empty ---------- */
+/* ---------- Work area ---------- */
 .main {
   flex: 1;
   min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Models window: centered, empty for now */
+.models-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: min(520px, 80%);
+  height: min(360px, 70%);
+  background: #141414;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  box-shadow: 0 10px 44px rgba(0, 0, 0, 0.55);
+}
+
+.view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.hidden { display: none !important; }
+
+/* Home: prompt in the middle */
+.home-view {
+  align-items: center;
+  justify-content: center;
+}
+
+/* Graphs view */
+.graphs-view {
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state {
+  text-align: center;
+}
+
+.empty-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.empty-sub {
+  font-size: 13px;
+  color: var(--faint);
+  margin-top: 6px;
+}
+
+.graph-wrap {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 32px 32px 96px;
+}
+
+#graphSvg {
+  width: min(680px, 90%);
+  height: min(480px, 80%);
+}
+
+/* Graph elements */
+.graph-edge {
+  stroke: #2e2e2e;
+  stroke-width: 1.5;
+}
+
+.graph-node {
+  fill: #161616;
+  stroke: #3a3a3a;
+  stroke-width: 1.5;
+}
+
+.graph-node-label {
+  fill: #b4b4b4;
+  font-size: 12px;
+  font-family: inherit;
+  text-anchor: middle;
+  user-select: none;
+}
+
+/* ---------- Prompt box ---------- */
+.prompt-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(640px, 88%);
+  background: #141414;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  padding: 9px 9px 9px 16px;
+  transition: border-color 120ms ease;
+}
+
+.prompt-box:focus-within { border-color: #3a3a3a; }
+
+.prompt-box input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+}
+
+.prompt-box input::placeholder { color: var(--faint); }
+
+.send-btn {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: #262626;
+  color: var(--text-dim);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.send-btn svg { width: 13px; height: 13px; }
+
+.send-btn:hover {
+  background: #333333;
+  color: var(--text);
+}
+
+/* In the graphs view the prompt sits at the bottom */
+.graphs-view .prompt-box {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  margin: 0;
 }
