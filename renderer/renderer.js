@@ -21,7 +21,9 @@ const taskList = $('taskList');
 const graphsBtn = $('graphsBtn');
 const newTaskBtn = $('newTaskBtn');
 const modelsBtn = $('modelsBtn');
+const modelsOverlay = $('modelsOverlay');
 const modelsWindow = $('modelsWindow');
+const modelsClose = $('modelsClose');
 
 const NS = 'http://www.w3.org/2000/svg';
 
@@ -181,25 +183,24 @@ $('searchBtn').addEventListener('click', () => {});
 
 // ---------- Models window ----------
 
-// Toggles the centered window; content will be added later.
+// Toggles the centered window over a blurred backdrop; content added later.
 function toggleModelsWindow(force) {
-  const open = typeof force === 'boolean' ? force : modelsWindow.classList.contains('hidden');
-  modelsWindow.classList.toggle('hidden', !open);
+  const open = typeof force === 'boolean' ? force : modelsOverlay.classList.contains('hidden');
+  modelsOverlay.classList.toggle('hidden', !open);
   modelsBtn.classList.toggle('is-active', open);
 }
 
 modelsBtn.addEventListener('click', () => toggleModelsWindow());
 
-// Close on Escape or on a click outside the window.
+modelsClose.addEventListener('click', () => toggleModelsWindow(false));
+
+// Close on Escape or on a click on the blurred backdrop.
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') toggleModelsWindow(false);
 });
 
-document.addEventListener('mousedown', (e) => {
-  if (modelsWindow.classList.contains('hidden')) return;
-  if (!modelsWindow.contains(e.target) && !modelsBtn.contains(e.target)) {
-    toggleModelsWindow(false);
-  }
+modelsOverlay.addEventListener('mousedown', (e) => {
+  if (e.target === modelsOverlay) toggleModelsWindow(false);
 });
 
 // ---------- Init ----------
