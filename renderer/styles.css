@@ -152,10 +152,24 @@ body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 4px 10px 8px;
+  padding: 2px 10px 8px;
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+/* Header above the task list: label + sort + archive switch */
+.side-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 10px 2px;
+}
+
+.side-header .side-label {
+  flex: 1;
+  padding: 0;
 }
 
 .side-label {
@@ -167,10 +181,265 @@ body {
   padding: 8px 10px 4px;
 }
 
+.header-icon-btn {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--faint);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.header-icon-btn svg { width: 13px; height: 13px; }
+
+.header-icon-btn:hover {
+  background: var(--hover);
+  color: var(--text-dim);
+}
+
+.header-icon-btn.is-active {
+  background: var(--active);
+  color: var(--text);
+}
+
+.task-item { position: relative; }
+
 .task-item .task-name {
+  flex: 1;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Small pin marker shown while a task is pinned */
+.task-pin-mark {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  color: var(--text-dim);
+}
+
+.task-pin-mark svg { width: 11px; height: 11px; }
+
+/* Row actions: shown on hover and on the selected row */
+.task-actions {
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 1px;
+  padding: 2px;
+  border-radius: 7px;
+  background: var(--hover);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
+.task-item:hover .task-actions,
+.task-item.is-active .task-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.task-item.is-active .task-actions { background: var(--active); }
+
+.task-action {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--icon);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.task-action svg { width: 12px; height: 12px; }
+
+.task-action:hover {
+  background: #2e2e2e;
+  color: var(--text);
+}
+
+.task-action.is-on { color: var(--text); }
+
+/* Inline rename input inside a task row */
+.task-rename {
+  flex: 1;
+  min-width: 0;
+  height: 22px;
+  padding: 0 6px;
+  border: 1px solid #3a3a3a;
+  border-radius: 5px;
+  background: #1c1c1c;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.side-empty {
+  padding: 4px 12px 8px;
+  font-size: 12px;
+  color: var(--faint);
+}
+
+/* ---------- Small popups (sort options, model picker) ---------- */
+.mini-pop {
+  position: absolute;
+  z-index: 40;
+  min-width: 168px;
+  padding: 5px;
+  background: #171717;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+.sort-pop {
+  top: calc(100% + 6px);
+  right: 0;
+}
+
+.model-pop {
+  right: 0;
+  bottom: calc(100% + 10px);
+  min-width: 210px;
+}
+
+.pop-title {
+  padding: 4px 8px 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sort-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.sort-option svg {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 auto;
+  color: var(--text-dim);
+  opacity: 0;
+}
+
+.sort-option:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.sort-option.is-current { color: var(--text); }
+.sort-option.is-current svg { opacity: 1; }
+
+.model-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px 5px 8px;
+  border-radius: 6px;
+}
+
+.model-row:hover { background: var(--hover); }
+
+.model-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.add-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 9px;
+  border: none;
+  border-radius: 11px;
+  background: #262626;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.add-btn svg { width: 10px; height: 10px; }
+
+.add-btn:hover {
+  background: #333333;
+  color: var(--text);
+}
+
+.add-btn.is-added {
+  background: #3a3a3a;
+  color: #ffffff;
+}
+
+/* Gear per model — settings window comes later */
+.gear-btn {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--faint);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.gear-btn svg { width: 13px; height: 13px; }
+
+.gear-btn:hover {
+  background: #2e2e2e;
+  color: var(--text-dim);
+}
+
+.pop-hint {
+  padding: 5px 8px 2px;
+  font-size: 11px;
+  color: var(--faint);
 }
 
 .side-bottom {
@@ -308,12 +577,21 @@ body {
 .graph-edge {
   stroke: #2e2e2e;
   stroke-width: 1.5;
+  pointer-events: none;
 }
 
 .graph-node {
   fill: #161616;
   stroke: #3a3a3a;
   stroke-width: 1.5;
+  cursor: grab;
+  touch-action: none;
+}
+
+.graph-node.dragging {
+  cursor: grabbing;
+  stroke: #5f5f5f;
+  stroke-width: 2;
 }
 
 .graph-node-label {
@@ -322,10 +600,12 @@ body {
   font-family: inherit;
   text-anchor: middle;
   user-select: none;
+  pointer-events: none;
 }
 
 /* ---------- Prompt box ---------- */
 .prompt-box {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -371,6 +651,48 @@ body {
 .send-btn:hover {
   background: #333333;
   color: var(--text);
+}
+
+/* Model picker button in the prompt line */
+.picker-btn {
+  position: relative;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #262626;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.picker-btn svg { width: 13px; height: 13px; }
+
+.picker-btn:hover,
+.picker-btn.is-open {
+  background: #333333;
+  color: var(--text);
+}
+
+/* Connected-models count on the picker button */
+.picker-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 3px;
+  border-radius: 7px;
+  background: #4a4a4a;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 14px;
+  text-align: center;
 }
 
 /* In the graphs view the prompt sits at the bottom */

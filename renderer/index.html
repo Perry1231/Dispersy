@@ -57,6 +57,33 @@
           </button>
         </nav>
 
+        <!-- Task list header: sorting + archive switch -->
+        <div class="side-header">
+          <p class="side-label" id="sideLabel">Tasks</p>
+          <button class="header-icon-btn" id="sortBtn" type="button" aria-label="Sort tasks" title="Sort tasks">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.5 4.5v15M4.5 8l3-3.5 3 3.5M16.5 19.5v-15M13.5 16l3 3.5 3-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="header-icon-btn" id="archiveToggleBtn" type="button" aria-label="Archived tasks" title="Archived tasks">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M2.5 3h19v5h-19z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M4.5 8v12.5h15V8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M10 12.5h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="mini-pop sort-pop hidden" id="sortPop">
+            <button class="sort-option" type="button" data-sort="created">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Last created
+            </button>
+            <button class="sort-option" type="button" data-sort="used">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Most used
+            </button>
+          </div>
+        </div>
+
         <!-- Created tasks appear here -->
         <div class="side-tasks" id="taskList"></div>
 
@@ -94,8 +121,8 @@
         <!-- Graphs: graph of the selected task, or a "nothing selected" message -->
         <section class="view graphs-view hidden" id="graphsView">
           <div class="empty-state" id="graphsEmpty">
-            <p class="empty-title">No task selected</p>
-            <p class="empty-sub">Start a new task to see its graph.</p>
+            <p class="empty-title" id="emptyTitle">No task selected</p>
+            <p class="empty-sub" id="emptySub">Start a new task to see its graph.</p>
           </div>
           <div class="graph-wrap hidden" id="graphWrap">
             <svg id="graphSvg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet"></svg>
@@ -105,6 +132,19 @@
         <!-- Prompt line: moved between views by script -->
         <form class="prompt-box" id="promptBox" autocomplete="off">
           <input id="promptInput" type="text" placeholder="Type a prompt…" spellcheck="false" />
+          <button class="picker-btn" id="modelPickerBtn" type="button" aria-label="Models" title="Models">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3 2.5 8 12 13l9.5-5L12 3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M2.5 13 12 18l9.5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+            <span class="picker-count hidden" id="pickerCount"></span>
+          </button>
+          <!-- Small model picker that opens right above the prompt line -->
+          <div class="mini-pop model-pop hidden" id="modelPop">
+            <p class="pop-title" id="modelPopTitle">Models</p>
+            <div id="modelPopList"></div>
+            <p class="pop-hint hidden" id="modelPopHint">Model settings — coming soon</p>
+          </div>
           <button class="send-btn" type="submit" aria-label="Send">
             <svg viewBox="0 0 16 16" aria-hidden="true">
               <path d="M8 13V3M3.8 7.2 8 3l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
